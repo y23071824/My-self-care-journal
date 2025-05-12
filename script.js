@@ -30,7 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const saved = JSON.parse(localStorage.getItem(dateStr) || "{}");
     if (saved.emotion) {
       const dot = document.createElement("div");
-      dot.className = `dot ${saved.emotion}`;
+      dot.className = "dot";
+      dot.textContent = saved.emotion;
       d.appendChild(dot);
     }
     d.addEventListener("click", () => {
