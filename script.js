@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const today = new Date();
   const year = today.getFullYear();
-  const month = today.getMonth(); // 0-indexed
+  const month = today.getMonth();
 
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -35,9 +35,10 @@ document.addEventListener("DOMContentLoaded", () => {
       d.appendChild(dot);
     }
     d.addEventListener("click", () => {
+      currentDate = dateStr;
       title.textContent = `${dateStr} 的記錄`;
       text.value = saved.text || "";
-      emotion.value = saved.emotion || "green";
+      emotion.value = saved.emotion || "";
       categoryEmotion.checked = saved.categoryEmotion || false;
       categoryLearning.checked = saved.categoryLearning || false;
       categoryMoney.checked = saved.categoryMoney || false;
@@ -45,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       summary.innerHTML = `
         <strong>摘要：</strong><br>
-        情緒：${emotion.options[emotion.selectedIndex].text}<br>
+        情緒：${emotion.value}<br>
         分類：${[
           categoryEmotion.checked ? "情緒日記" : "",
           categoryLearning.checked ? "學習進度" : "",
@@ -55,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
         內容：${text.value}
       `;
       summary.style.display = "block";
-      currentDate = dateStr;
     });
     calendar.appendChild(d);
   }
@@ -64,7 +64,10 @@ document.addEventListener("DOMContentLoaded", () => {
 let currentDate = "";
 
 function saveData() {
-  if (!currentDate) return alert("請先點選日期");
+  if (!currentDate) {
+    alert("請先點選日期");
+    return;
+  }
   const data = {
     text: document.getElementById("text").value,
     emotion: document.getElementById("emotion").value,
