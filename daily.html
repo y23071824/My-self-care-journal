@@ -28,6 +28,7 @@
 
   <script>
     const date = new URLSearchParams(window.location.search).get("date");
+
     function save() {
       const data = {
         action: document.getElementById("action").value,
@@ -38,6 +39,7 @@
       localStorage.setItem("record-" + date, JSON.stringify(data));
       alert("已儲存");
     }
+
     function goBack() {
       window.location.href = "index.html";
     }
