@@ -30,3 +30,11 @@ h1 {
   background-color: #ffc0cb;
   color: white;
 }
+
+.row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
