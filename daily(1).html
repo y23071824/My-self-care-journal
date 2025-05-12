@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>每日記錄</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <h1>每日詳情</h1>
+  <label>我為自己做了什麼：<br><textarea id="action"></textarea></label><br><br>
+  <label>情緒狀態：
+    <select id="mood">
+      <option value="green">綠色</option>
+      <option value="yellow">黃色</option>
+      <option value="red">紅色</option>
+    </select>
+  </label><br><br>
+  <label>標記類型：
+    <select id="type">
+      <option value="emotion">情緒日記</option>
+      <option value="learning">學習進度</option>
+      <option value="money">金錢照顧</option>
+    </select>
+  </label><br><br>
+  <label>金額（元）：<input type="number" id="money"></label><br><br>
+  <button onclick="save()">儲存</button>
+  <button onclick="goBack()">返回</button>
+
+  <script>
+    const date = new URLSearchParams(window.location.search).get("date");
+    function save() {
+      const data = {
+        action: document.getElementById("action").value,
+        mood: document.getElementById("mood").value,
+        type: document.getElementById("type").value,
+        money: document.getElementById("money").value
+      };
+      localStorage.setItem("record-" + date, JSON.stringify(data));
+      alert("已儲存");
+    }
+    function goBack() {
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
