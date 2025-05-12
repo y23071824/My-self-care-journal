@@ -1,14 +1,136 @@
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <title>自我照顧日記</title>
-  <link rel="stylesheet" href="./style.css" />
+  <meta charset="UTF-8">
+  <title>值得我 我值得</title>
+  <style>
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 10px; }
+    .weekday { font-weight: bold; text-align: center; }
+    .day {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+      border-radius: 8px;
+      background-color: white;
+      cursor: pointer;
+      position: relative;
+      min-height: 40px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .header { display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 20px; }
+    select { padding: 6px; border-radius: 6px; }
+    #preview { margin-top: 30px; padding: 10px; background: #fff4f4; border-radius: 10px; }
+  </style>
 </head>
 <body>
-  <h1>自我照顧月曆</h1>
-  <div id="calendar"></div>
-  <script src="./script.js"></script>
+  <h1>值得我 我值得</h1>
+  <div class="header">
+    <select id="year"></select>
+    <select id="month"></select>
+  </div>
+  <div class="calendar-grid" id="weekdays">
+    <div class='weekday'>一</div><div class='weekday'>二</div><div class='weekday'>三</div><div class='weekday'>四</div><div class='weekday'>五</div><div class='weekday'>六</div><div class='weekday'>日</div>
+  </div>
+  <div class="calendar-grid" id="calendar"></div>
+
+  <div id="preview"><strong>日記摘要：</strong><span id="previewText">請點選某一天</span></div>
+
+  <div id="quickEntry" style="margin-top: 20px; padding: 10px; border-top: 1px solid #ddd;">
+    <h3>今日我為自己做了什麼？</h3>
+    <textarea id="todayText" rows="3" style="width: 100%; border-radius: 6px;"></textarea>
+    <div style="margin-top: 10px;">
+      <label>選擇今日情緒顏色：</label>
+      <input type="color" id="emotionColor" value="#ffcccc" />
+    </div>
+    <button id="saveToday" style="margin-top: 10px; padding: 8px 12px; border-radius: 6px;">儲存</button>
+  </div>
+
+  <script>
+    const weekdays = document.getElementById('weekdays');
+    const calendar = document.getElementById('calendar');
+    const yearSelect = document.getElementById('year');
+    const monthSelect = document.getElementById('month');
+    const preview = document.getElementById('previewText');
+
+    for (let y = 2020; y <= 2030; y++) {
+      const option = document.createElement('option');
+      option.value = y;
+      option.textContent = y + " 年";
+      yearSelect.appendChild(option);
+    }
+
+    for (let m = 1; m <= 12; m++) {
+      const option = document.createElement('option');
+      option.value = m;
+      option.textContent = m + " 月";
+      monthSelect.appendChild(option);
+    }
+
+    function renderCalendar() {
+      const year = parseInt(yearSelect.value);
+      const month = parseInt(monthSelect.value);
+      const firstDay = new Date(year, month - 1, 1).getDay();
+      const daysInMonth = new Date(year, month, 0).getDate();
+      calendar.innerHTML = "";
+
+      let blankStart = (firstDay + 6) % 7;
+      for (let i = 0; i < blankStart; i++) {
+        calendar.innerHTML += "<div></div>";
+      }
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const day = d.toString().padStart(2, '0');
+        const monthStr = month.toString().padStart(2, '0');
+        const key = `${year}-${monthStr}-${day}`;
+        const saved = JSON.parse(localStorage.getItem(key) || '{}');
+        const div = document.createElement('div');
+        div.className = 'day';
+        div.textContent = day;
+
+        if (saved.emotionColor) {
+          const dot = document.createElement('div');
+          dot.className = 'dot';
+          dot.style.backgroundColor = saved.emotionColor;
+          div.appendChild(dot);
+        }
+
+        div.onclick = () => {
+          window.location.href = `daily.html?date=${key}`;
+        };
+        calendar.appendChild(div);
+      }
+    }
+
+    yearSelect.onchange = renderCalendar;
+    monthSelect.onchange = renderCalendar;
+
+    const today = new Date();
+    yearSelect.value = today.getFullYear();
+    monthSelect.value = today.getMonth() + 1;
+    renderCalendar();
+
+    document.getElementById("saveToday").onclick = () => {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = (today.getMonth() + 1).toString().padStart(2, '0');
+      const day = today.getDate().toString().padStart(2, '0');
+      const key = `${year}-${month}-${day}`;
+      const text = document.getElementById("todayText").value.trim();
+      const color = document.getElementById("emotionColor").value;
+
+      localStorage.setItem(key, JSON.stringify({ text, emotionColor: color }));
+      renderCalendar();
+      alert("今日記錄已儲存！");
+    };
+  </script>
 </body>
 </html>
-
