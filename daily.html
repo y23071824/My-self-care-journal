@@ -3,45 +3,70 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>每日日記</title>
-  <style>
-    body { font-family: sans-serif; padding: 20px; background: #fff9f9; }
-    textarea { width: 100%; border-radius: 6px; padding: 10px; }
-    input[type="color"] { margin-top: 10px; }
-    button { margin-top: 15px; padding: 10px 15px; border-radius: 6px; }
-    a { display: inline-block; margin-top: 20px; text-decoration: none; color: #333; }
-  </style>
-</head>
-<body>
-  <h2 id="title">日記記錄</h2>
-  <textarea id="diaryText" rows="10" placeholder="寫下今天你為自己做了什麼..."></textarea>
-  <div>
-    <label>情緒顏色：</label>
-    <input type="color" id="emotionColor" value="#ffcccc">
-  </div>
-  <button onclick="saveEntry()">儲存</button>
-  <a href="index.html">← 返回月曆</a>
-
+  <title>每日回顧</title>
+  <link rel="stylesheet" href="style.css">
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const date = params.get("date");
-    const title = document.getElementById("title");
-    const textArea = document.getElementById("diaryText");
-    const colorInput = document.getElementById("emotionColor");
+    let currentDate = '';
+    function loadData() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const date = urlParams.get('date');
+      currentDate = date;
+      document.getElementById('date-title').textContent = date.replace(/-/g, "年").replace(/年(\d+)$/, "月$1日");
 
-    if (date) {
-      title.textContent = `日記記錄：${date}`;
       const saved = JSON.parse(localStorage.getItem(date) || '{}');
-      if (saved.text) textArea.value = saved.text;
-      if (saved.emotionColor) colorInput.value = saved.emotionColor;
+      document.getElementById('text').value = saved.text || '';
+      document.getElementById('emotion').value = saved.emotion || 'green';
+      document.getElementById('category-emotion').checked = saved.categoryEmotion || false;
+      document.getElementById('category-learn').checked = saved.categoryLearn || false;
+      document.getElementById('category-money').checked = saved.categoryMoney || false;
+      document.getElementById('spend').value = saved.spend || '';
     }
 
-    function saveEntry() {
-      const text = textArea.value.trim();
-      const color = colorInput.value;
-      localStorage.setItem(date, JSON.stringify({ text, emotionColor: color }));
+    function saveData() {
+      const text = document.getElementById('text').value;
+      const emotion = document.getElementById('emotion').value;
+      const colorMap = { green: 'green', yellow: 'orange', red: 'red' };
+      const data = {
+        text: text,
+        emotion: emotion,
+        emotionColor: colorMap[emotion],
+        categoryEmotion: document.getElementById('category-emotion').checked,
+        categoryLearn: document.getElementById('category-learn').checked,
+        categoryMoney: document.getElementById('category-money').checked,
+        spend: document.getElementById('spend').value
+      };
+      localStorage.setItem(currentDate, JSON.stringify(data));
       alert("已儲存！");
     }
+
+    window.onload = loadData;
   </script>
+</head>
+<body>
+  <h1 id="date-title"></h1>
+
+  <p><strong>我為自己做了什麼：</strong></p>
+  <textarea id="text" rows="5" placeholder="寫下你的努力、對自己的照顧..."></textarea>
+
+  <p><strong>情緒狀況：</strong>
+    <select id="emotion">
+      <option value="green">綠色：積極</option>
+      <option value="yellow">黃色：普通</option>
+      <option value="red">紅色：低落</option>
+    </select>
+  </p>
+
+  <p><strong>分類標記：</strong><br>
+    <label><input type="checkbox" id="category-emotion"> 情緒日記</label><br>
+    <label><input type="checkbox" id="category-learn"> 學習進度</label><br>
+    <label><input type="checkbox" id="category-money"> 金錢照顧自己</label>
+  </p>
+
+  <p><strong>今日金錢使用：</strong><br>
+    <input type="number" id="spend" placeholder="輸入今日自我照顧金額"> 元
+  </p>
+
+  <button onclick="saveData()">儲存</button>
+  <a href="index.html"><button>返回月曆</button></a>
 </body>
 </html>
