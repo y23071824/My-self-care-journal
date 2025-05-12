@@ -1,46 +1,72 @@
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <title>每日記錄</title>
-  <link rel="stylesheet" href="./style.css" />
+  <meta charset="UTF-8">
+  <title>每日回顧</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    let currentDate = '';
+    function loadData() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const date = urlParams.get('date');
+      currentDate = date;
+      document.getElementById('date-title').textContent = date.replace(/-/g, "年").replace(/年(\d+)$/, "月$1日");
+
+      const saved = JSON.parse(localStorage.getItem(date) || '{}');
+      document.getElementById('text').value = saved.text || '';
+      document.getElementById('emotion').value = saved.emotion || 'green';
+      document.getElementById('category-emotion').checked = saved.categoryEmotion || false;
+      document.getElementById('category-learn').checked = saved.categoryLearn || false;
+      document.getElementById('category-money').checked = saved.categoryMoney || false;
+      document.getElementById('spend').value = saved.spend || '';
+    }
+
+    function saveData() {
+      const text = document.getElementById('text').value;
+      const emotion = document.getElementById('emotion').value;
+      const colorMap = { green: 'green', yellow: 'orange', red: 'red' };
+      const data = {
+        text: text,
+        emotion: emotion,
+        emotionColor: colorMap[emotion],
+        categoryEmotion: document.getElementById('category-emotion').checked,
+        categoryLearn: document.getElementById('category-learn').checked,
+        categoryMoney: document.getElementById('category-money').checked,
+        spend: document.getElementById('spend').value
+      };
+      localStorage.setItem(currentDate, JSON.stringify(data));
+      alert("已儲存！");
+    }
+
+    window.onload = loadData;
+  </script>
 </head>
 <body>
-  <h1>每日詳情</h1>
-  <label>我為自己做了什麼：<br><textarea id="action"></textarea></label><br><br>
-  <label>情緒狀態：
-    <select id="mood">
-      <option value="green">綠色</option>
-      <option value="yellow">黃色</option>
-      <option value="red">紅色</option>
-    </select>
-  </label><br><br>
-  <label>標記類型：
-    <select id="type">
-      <option value="emotion">情緒日記</option>
-      <option value="learning">學習進度</option>
-      <option value="money">金錢照顧</option>
-    </select>
-  </label><br><br>
-  <label>金額（元）：<input type="number" id="money"></label><br><br>
-  <button onclick="save()">儲存</button>
-  <button onclick="goBack()">返回</button>
+  <h1 id="date-title"></h1>
 
-  <script>
-    const date = new URLSearchParams(window.location.search).get("date");
-    function save() {
-      const data = {
-        action: document.getElementById("action").value,
-        mood: document.getElementById("mood").value,
-        type: document.getElementById("type").value,
-        money: document.getElementById("money").value
-      };
-      localStorage.setItem("record-" + date, JSON.stringify(data));
-      alert("已儲存");
-    }
-    function goBack() {
-      window.location.href = "index.html";
-    }
-  </script>
+  <p><strong>我為自己做了什麼：</strong></p>
+  <textarea id="text" rows="5" placeholder="寫下你的努力、對自己的照顧..."></textarea>
+
+  <p><strong>情緒狀況：</strong>
+    <select id="emotion">
+      <option value="green">綠色：積極</option>
+      <option value="yellow">黃色：普通</option>
+      <option value="red">紅色：低落</option>
+    </select>
+  </p>
+
+  <p><strong>分類標記：</strong><br>
+    <label><input type="checkbox" id="category-emotion"> 情緒日記</label><br>
+    <label><input type="checkbox" id="category-learn"> 學習進度</label><br>
+    <label><input type="checkbox" id="category-money"> 金錢照顧自己</label>
+  </p>
+
+  <p><strong>今日金錢使用：</strong><br>
+    <input type="number" id="spend" placeholder="輸入今日自我照顧金額"> 元
+  </p>
+
+  <button onclick="saveData()">儲存</button>
+  <a href="index.html"><button>返回月曆</button></a>
 </body>
 </html>
