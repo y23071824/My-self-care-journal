@@ -1,4 +1,3 @@
-
 body {
   font-family: sans-serif;
   background: #fffaf8;
@@ -7,4 +6,8 @@ body {
 }
 h1 {
   color: #2a3f4f;
+}
+div#calendar div {
+  margin: 8px 0;
+  cursor: pointer;
 }
