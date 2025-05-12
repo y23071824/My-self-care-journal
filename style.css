@@ -1,11 +1,26 @@
 
 body {
-  font-family: sans-serif;
-  background: #fffaf8;
+  background-color: #fff8f5;
   color: #333;
-  padding: 1.5rem;
+  font-family: "Helvetica", sans-serif;
+  padding: 20px;
 }
-h1 {
-  color: #2a3f4f;
+h1, h2 {
+  color: #d17b88;
 }
-
+textarea, input, select {
+  width: 100%;
+  margin: 10px 0;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+button {
+  background-color: #d17b88;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  margin-right: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
