@@ -1,3 +1,4 @@
+
 const calendar = document.getElementById("calendar");
 
 const today = new Date();

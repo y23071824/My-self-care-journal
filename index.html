@@ -1,13 +1,77 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <title>自我照顧日記</title>
-  <link rel="stylesheet" href="./style.css" />
+  <meta charset="UTF-8">
+  <title>自我照顧月曆</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+      max-width: 700px;
+      margin: auto;
+    }
+    .calendar-day {
+      padding: 10px;
+      background-color: #ffeef1;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .calendar-day:hover {
+      background-color: #ffc0cb;
+      color: white;
+    }
+    .calendar-header {
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
   <h1>自我照顧月曆</h1>
-  <div id="calendar"></div>
-  <script src="./script.js"></script>
+  <div class="calendar-header" id="month-title"></div>
+  <div class="calendar" id="calendar"></div>
+
+  <script>
+    const calendar = document.getElementById("calendar");
+    const monthTitle = document.getElementById("month-title");
+
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const firstDayOfWeek = new Date(year, month, 1).getDay();
+
+    const weekdays = ["日", "一", "二", "三", "四", "五", "六"];
+    weekdays.forEach(day => {
+      const label = document.createElement("div");
+      label.textContent = day;
+      label.style.fontWeight = "bold";
+      label.style.textAlign = "center";
+      calendar.appendChild(label);
+    });
+
+    for (let i = 0; i < firstDayOfWeek; i++) {
+      const empty = document.createElement("div");
+      calendar.appendChild(empty);
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const div = document.createElement("div");
+      div.className = "calendar-day";
+      div.textContent = day;
+      const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      div.onclick = () => {
+        window.location.href = `daily.html?date=${dateStr}`;
+      };
+      calendar.appendChild(div);
+    }
+
+    monthTitle.textContent = `${year} 年 ${month + 1} 月`;
+  </script>
 </body>
 </html>

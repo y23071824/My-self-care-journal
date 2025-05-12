@@ -1,22 +1,28 @@
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   background-color: #fdf7f6;
   color: #333;
   padding: 20px;
 }
-h1 {
+h1, h2 {
   text-align: center;
   color: #d17e90;
 }
+textarea, select, input {
+  font-size: 1em;
+}
+
 .row {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
 }
 .cell {
   width: 40px;
   height: 40px;
-  margin: 5px;
+  margin: 2px;
   background-color: #ffeef1;
   text-align: center;
   line-height: 40px;
@@ -30,5 +36,3 @@ h1 {
   background-color: #ffc0cb;
   color: white;
 }
-
-
