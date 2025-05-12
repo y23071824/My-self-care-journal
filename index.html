@@ -1,9 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
   <title>值得我 我值得</title>
+  <link rel="stylesheet" href="style.css">
   <style>
     .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 10px; }
     .weekday { font-weight: bold; text-align: center; }
@@ -78,11 +78,11 @@
     function renderCalendar() {
       const year = parseInt(yearSelect.value);
       const month = parseInt(monthSelect.value);
-      const firstDay = new Date(year, month - 1, 1).getDay();
+      const firstDay = new Date(year, month - 1, 1).getDay();  // 星期天為 0
       const daysInMonth = new Date(year, month, 0).getDate();
       calendar.innerHTML = "";
 
-      let blankStart = (firstDay + 6) % 7;
+      let blankStart = (firstDay + 6) % 7; // 轉換為以週一為第一天
       for (let i = 0; i < blankStart; i++) {
         calendar.innerHTML += "<div></div>";
       }
@@ -104,8 +104,9 @@
         }
 
         div.onclick = () => {
-          window.location.href = `daily.html?date=${key}`;
+          preview.textContent = saved.text ? saved.text.slice(0, 50) : "當日尚無紀錄";
         };
+        div.onclick.bind(div);
         calendar.appendChild(div);
       }
     }
@@ -128,7 +129,7 @@
       const color = document.getElementById("emotionColor").value;
 
       localStorage.setItem(key, JSON.stringify({ text, emotionColor: color }));
-      renderCalendar();
+      renderCalendar();  // 更新月曆畫面
       alert("今日記錄已儲存！");
     };
   </script>
