@@ -3,15 +3,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!calendar) return;
 
-  // 顯示本月1～31號作為示意日曆（簡易版）
-  for (let i = 1; i <= 31; i++) {
+  // 取得今天日期
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth(); // 0 = 一月
+  const monthName = `${year} 年 ${month + 1} 月`;
+
+  // 取得本月總天數
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  // 標題
+  const title = document.createElement("h2");
+  title.textContent = monthName;
+  title.style.marginTop = "1rem";
+  title.style.marginBottom = "1rem";
+  calendar.appendChild(title);
+
+  // 動態產生每一天
+  for (let i = 1; i <= daysInMonth; i++) {
     const day = document.createElement("div");
-    day.textContent = `5月 ${i}日`;
+    day.textContent = `${month + 1} 月 ${i} 日`;
     day.style.marginBottom = "8px";
     day.style.cursor = "pointer";
     day.style.color = "#2a3f4f";
     day.addEventListener("click", () => {
-      window.location.href = `daily.html?date=2025-05-${String(i).padStart(2, "0")}`;
+      const dateStr = `${year}-${String(month + 1).padStart(2, "0")}-${String(i).padStart(2, "0")}`;
+      window.location.href = `daily.html?date=${dateStr}`;
     });
     calendar.appendChild(day);
   }
