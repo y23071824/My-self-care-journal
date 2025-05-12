@@ -1,14 +1,52 @@
-
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #fdf7f6;
-  color: #333;
-  padding: 20px;
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: #f9f9f9;
 }
 h1, h2 {
   text-align: center;
-  color: #d17e90;
 }
-textarea, select, input {
-  font-size: 1em;
+#calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  max-width: 600px;
+  margin: 20px auto;
+}
+.day {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+.day:hover {
+  background-color: #e0f7fa;
+}
+.hidden {
+  display: none;
+}
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+label {
+  display: block;
+  margin-top: 10px;
+}
+textarea, select, input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+.buttons {
+  margin-top: 20px;
+  text-align: center;
+}
+button {
+  padding: 10px 20px;
+  margin: 0 10px;
 }
