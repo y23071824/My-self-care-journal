@@ -1,72 +1,72 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <title>每日回顧</title>
-  <link rel="stylesheet" href="style.css">
-  <script>
-    let currentDate = '';
-    function loadData() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const date = urlParams.get('date');
-      currentDate = date;
-      document.getElementById('date-title').textContent = date.replace(/-/g, "年").replace(/年(\d+)$/, "月$1日");
-
-      const saved = JSON.parse(localStorage.getItem(date) || '{}');
-      document.getElementById('text').value = saved.text || '';
-      document.getElementById('emotion').value = saved.emotion || 'green';
-      document.getElementById('category-emotion').checked = saved.categoryEmotion || false;
-      document.getElementById('category-learn').checked = saved.categoryLearn || false;
-      document.getElementById('category-money').checked = saved.categoryMoney || false;
-      document.getElementById('spend').value = saved.spend || '';
-    }
-
-    function saveData() {
-      const text = document.getElementById('text').value;
-      const emotion = document.getElementById('emotion').value;
-      const colorMap = { green: 'green', yellow: 'orange', red: 'red' };
-      const data = {
-        text: text,
-        emotion: emotion,
-        emotionColor: colorMap[emotion],
-        categoryEmotion: document.getElementById('category-emotion').checked,
-        categoryLearn: document.getElementById('category-learn').checked,
-        categoryMoney: document.getElementById('category-money').checked,
-        spend: document.getElementById('spend').value
-      };
-      localStorage.setItem(currentDate, JSON.stringify(data));
-      alert("已儲存！");
-    }
-
-    window.onload = loadData;
-  </script>
+    <meta charset="UTF-8">
+    <title>每日記錄</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1 id="date-title"></h1>
+    <h1 id="date-title">每日記錄</h1>
 
-  <p><strong>我為自己做了什麼：</strong></p>
-  <textarea id="text" rows="5" placeholder="寫下你的努力、對自己的照顧..."></textarea>
+    <label>我為自己做了什麼：
+        <textarea id="self-care-text"></textarea>
+    </label>
 
-  <p><strong>情緒狀況：</strong>
-    <select id="emotion">
-      <option value="green">綠色：積極</option>
-      <option value="yellow">黃色：普通</option>
-      <option value="red">紅色：低落</option>
-    </select>
-  </p>
+    <label>情緒狀況：
+        <select id="mood-select">
+            <option value="green">綠（正向）</option>
+            <option value="yellow">黃（普通）</option>
+            <option value="red">紅（低落）</option>
+        </select>
+    </label>
 
-  <p><strong>分類標記：</strong><br>
-    <label><input type="checkbox" id="category-emotion"> 情緒日記</label><br>
-    <label><input type="checkbox" id="category-learn"> 學習進度</label><br>
-    <label><input type="checkbox" id="category-money"> 金錢照顧自己</label>
-  </p>
+    <label>類型標記：
+        <select id="tag-select">
+            <option value="emotion">情緒日記</option>
+            <option value="learning">學習進度</option>
+            <option value="money">金錢照顧</option>
+        </select>
+    </label>
 
-  <p><strong>今日金錢使用：</strong><br>
-    <input type="number" id="spend" placeholder="輸入今日自我照顧金額"> 元
-  </p>
+    <label>今日金錢照顧自己金額（元）：
+        <input type="number" id="money-spent" />
+    </label>
 
-  <button onclick="saveData()">儲存</button>
-  <a href="index.html"><button>返回月曆</button></a>
+    <button id="save-btn">儲存</button>
+    <button onclick="window.location.href='index.html'">返回月曆</button>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const date = params.get("date");
+        document.getElementById("date-title").textContent = "每日記錄：" + date;
+
+        const selfCareText = document.getElementById("self-care-text");
+        const moodSelect = document.getElementById("mood-select");
+        const tagSelect = document.getElementById("tag-select");
+        const moneySpent = document.getElementById("money-spent");
+
+        const saveBtn = document.getElementById("save-btn");
+        const key = "daily-" + date;
+
+        // 載入舊資料
+        const savedData = JSON.parse(localStorage.getItem(key));
+        if (savedData) {
+            selfCareText.value = savedData.text;
+            moodSelect.value = savedData.mood;
+            tagSelect.value = savedData.tag;
+            moneySpent.value = savedData.money;
+        }
+
+        saveBtn.onclick = () => {
+            const data = {
+                text: selfCareText.value,
+                mood: moodSelect.value,
+                tag: tagSelect.value,
+                money: moneySpent.value
+            };
+            localStorage.setItem(key, JSON.stringify(data));
+            alert("已儲存！");
+        };
+    </script>
 </body>
 </html>
