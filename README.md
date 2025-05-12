@@ -1,1 +1,1 @@
-# My-self-care-journal
+# self-care-journal
