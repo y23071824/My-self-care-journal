@@ -1,47 +1,44 @@
-
-<!DOCTYPE html>
-<html lang="zh-Hant">
+<!DOCTYPE html><html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>每日日記</title>
-  <style>
-    body { font-family: sans-serif; padding: 20px; background: #fff9f9; }
-    textarea { width: 100%; border-radius: 6px; padding: 10px; }
-    input[type="color"] { margin-top: 10px; }
-    button { margin-top: 15px; padding: 10px 15px; border-radius: 6px; }
-    a { display: inline-block; margin-top: 20px; text-decoration: none; color: #333; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Worth Me 月曆日記</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h2 id="title">日記記錄</h2>
-  <textarea id="diaryText" rows="10" placeholder="寫下今天你為自己做了什麼..."></textarea>
-  <div>
-    <label>情緒顏色：</label>
-    <input type="color" id="emotionColor" value="#ffcccc">
-  </div>
-  <button onclick="saveEntry()">儲存</button>
-  <a href="index.html">← 返回月曆</a>
+  <header>
+    <h1>Worth Me 我值得</h1>
+  </header>  <main>
+    <section id="calendar-view">
+      <div id="month-header">
+        <button id="prev-month">←</button>
+        <h2 id="month-label">2025年5月</h2>
+        <button id="next-month">→</button>
+      </div>
+      <div id="calendar-grid"></div>
+    </section><section id="day-detail" class="hidden">
+  <h3 id="selected-date">2025-05-11</h3>
+  <label>今日我為自己做了什麼：</label>
+  <textarea id="daily-reflection"></textarea>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const date = params.get("date");
-    const title = document.getElementById("title");
-    const textArea = document.getElementById("diaryText");
-    const colorInput = document.getElementById("emotionColor");
+  <label>情緒狀況：</label>
+  <select id="emotion-select">
+    <option value="positive">綠色：積極</option>
+    <option value="neutral">黃色：平穩</option>
+    <option value="negative">紅色：低落</option>
+  </select>
 
-    if (date) {
-      title.textContent = `日記記錄：${date}`;
-      const saved = JSON.parse(localStorage.getItem(date) || '{}');
-      if (saved.text) textArea.value = saved.text;
-      if (saved.emotionColor) colorInput.value = saved.emotionColor;
-    }
+  <label>興趣學習紀錄：</label>
+  <input type="text" id="learning-progress" />
 
-    function saveEntry() {
-      const text = textArea.value.trim();
-      const color = colorInput.value;
-      localStorage.setItem(date, JSON.stringify({ text, emotionColor: color }));
-      alert("已儲存！");
-    }
-  </script>
-</body>
+  <label>金錢使用回顧：</label>
+  <input type="text" id="spending-summary" />
+
+  <button id="save-entry">儲存</button>
+  <button id="close-detail">返回月曆</button>
+</section>
+
+  </main>  <footer>
+    <p>© 2025 Worth Me</p>
+  </footer>  <script src="script.js"></script></body>
 </html>
