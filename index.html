@@ -6,46 +6,81 @@
   <title>自我照顧月曆</title>
   <link rel="stylesheet" href="style.css" />
   <script>
-    function updateCalendar() {
-      const year = document.getElementById("year-select").value;
-      const month = document.getElementById("month-select").value;
+    function generateCalendar(year, month) {
+      const calendar = document.getElementById("calendar");
+      calendar.innerHTML = "";
+      const firstDay = new Date(year, month - 1, 1).getDay(); // 星期幾（0～6，日～六）
+      const daysInMonth = new Date(year, month, 0).getDate();
+      const offset = (firstDay + 6) % 7; // 將星期天調為最後
+
+      for (let i = 0; i < offset; i++) {
+        const empty = document.createElement("div");
+        empty.className = "day empty";
+        calendar.appendChild(empty);
+      }
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dayBox = document.createElement("div");
+        dayBox.className = "day";
+        dayBox.textContent = d;
+        calendar.appendChild(dayBox);
+      }
+
       document.getElementById("calendar-label").textContent = year + "年" + month + "月";
-      // 這裡僅更新標籤，實際可進一步換算每月起始星期與天數
     }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth() + 1;
+      document.getElementById("year-select").value = year;
+      document.getElementById("month-select").value = month;
+      generateCalendar(year, month);
+
+      document.getElementById("year-select").addEventListener("change", () => {
+        const y = parseInt(document.getElementById("year-select").value);
+        const m = parseInt(document.getElementById("month-select").value);
+        generateCalendar(y, m);
+      });
+
+      document.getElementById("month-select").addEventListener("change", () => {
+        const y = parseInt(document.getElementById("year-select").value);
+        const m = parseInt(document.getElementById("month-select").value);
+        generateCalendar(y, m);
+      });
+    });
   </script>
 </head>
 <body>
   <h1 class="main-title">自我照顧月曆</h1>
 
   <div class="calendar-controls">
-    <select id="year-select" onchange="updateCalendar()">
-      <option value="2025">2025</option>
+    <select id="year-select">
       <option value="2024">2024</option>
+      <option value="2025">2025</option>
     </select>
-    <select id="month-select" onchange="updateCalendar()">
+    <select id="month-select">
+      <option value="1">1月</option>
+      <option value="2">2月</option>
+      <option value="3">3月</option>
+      <option value="4">4月</option>
       <option value="5">5月</option>
       <option value="6">6月</option>
+      <option value="7">7月</option>
+      <option value="8">8月</option>
+      <option value="9">9月</option>
+      <option value="10">10月</option>
+      <option value="11">11月</option>
+      <option value="12">12月</option>
     </select>
-    <div id="calendar-label">2025年5月</div>
+    <div id="calendar-label"></div>
   </div>
 
   <div class="weekdays">
     <div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div><div>日</div>
   </div>
 
-  <div id="calendar" class="calendar-grid">
-    <div class="day">4</div><div class="day">5</div><div class="day">6</div>
-    <div class="day">7</div><div class="day">8</div><div class="day">9</div>
-    <div class="day">10</div><div class="day">11</div><div class="day">12</div>
-    <div class="day">13<br>green</div><div class="day">14<br>green</div>
-    <div class="day">15<br>🥲</div><div class="day">16</div><div class="day">17<br>green</div>
-    <div class="day">18</div><div class="day">19<br>green</div>
-    <div class="day">20</div><div class="day">21</div>
-    <div class="day">22<br>yellow</div><div class="day">23<br>green</div>
-    <div class="day">24</div><div class="day">25</div><div class="day">26</div>
-    <div class="day">27<br>🥲</div><div class="day">28</div><div class="day">29</div>
-    <div class="day">30</div><div class="day">31<br>🥲</div>
-  </div>
+  <div id="calendar" class="calendar-grid"></div>
 
   <div class="editor">
     <p>請點選日期</p>

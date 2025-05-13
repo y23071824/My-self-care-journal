@@ -4,7 +4,7 @@ body {
   background-color: #fffaf8;
   color: #333;
   padding: 1rem;
-  font-size: 1.5em; /* 全站字體放大三級 */
+  font-size: 1.5em; /* 整體字體放大三級 */
 }
 
 .main-title {
@@ -17,10 +17,11 @@ body {
 .calendar-controls {
   text-align: center;
   margin-bottom: 1rem;
+  font-size: 1.2em;
 }
 
 .calendar-controls select {
-  font-size: 1.2em;
+  font-size: 1em;
   padding: 0.4em;
   border-radius: 8px;
   border: 1px solid #ccc;
@@ -28,7 +29,7 @@ body {
 
 #calendar-label {
   margin-top: 0.5em;
-  font-size: 1.4em;
+  font-size: 1.2em;
 }
 
 .weekdays {
@@ -67,7 +68,7 @@ body {
 
 textarea {
   width: 100%;
-  font-size: 0.6em;  /* 編輯區再小三級 */
+  font-size: 0.45em;  /* 再小三級 */
   padding: 0.5em;
   margin-bottom: 1rem;
 }
