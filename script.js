@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const yearSelect = document.createElement("select");
   yearSelect.id = "yearSelect";
-  for (let y = 2020; y <= 2030; y++) {
+  for (let y = 2020; y <= 2035; y++) {
     const opt = document.createElement("option");
     opt.value = y;
     opt.textContent = y;
@@ -31,11 +31,9 @@ document.addEventListener("DOMContentLoaded", () => {
     monthSelect.appendChild(opt);
   }
 
-  const controls = document.createElement("div");
-  controls.id = "calendar-controls";
+  const controls = document.getElementById("calendar-controls");
   controls.appendChild(yearSelect);
   controls.appendChild(monthSelect);
-  document.body.insertBefore(controls, calendar);
 
   const today = new Date();
   selectedYear = today.getFullYear();
@@ -96,6 +94,13 @@ document.addEventListener("DOMContentLoaded", () => {
           內容：${text.value}
         `;
         summary.style.display = "block";
+
+        text.disabled = false;
+        emotion.disabled = false;
+        categoryEmotion.disabled = false;
+        categoryLearning.disabled = false;
+        categoryMoney.disabled = false;
+        money.disabled = false;
       });
       calendar.appendChild(d);
     }
