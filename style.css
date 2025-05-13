@@ -72,19 +72,19 @@ h2 {
 
 #editor {
   margin-top: 1rem;
-  transform: scale(1.5); /* 編輯區整體放大 1.5～2 倍可調 */
+  transform: scale(2.0);
   transform-origin: top left;
 }
 
 #editor textarea {
   width: 100%;
-  height: 120px;
-  font-size: 10px; /* 輸入文字縮小 */
+  height: 140px;
+  font-size: 22px;
 }
 
 #editor select,
 #editor input[type="number"],
 #editor label,
 #editor button {
-  font-size: 26px;
+  font-size: 28px;
 }
