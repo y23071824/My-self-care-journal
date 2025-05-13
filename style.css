@@ -77,20 +77,20 @@ h2 {
 }
 /* 編輯區 textarea 字體縮小 */
 textarea {
-  font-size: 10px;
+  font-size: 6px;
 }
 
 /* 標題文字放大 */
 h1, h2, h3, .title {
-  font-size: 34px;
+  font-size: 38px;
 }
 
 /* 日曆文字放大 */
 #calendar, #calendar th, #calendar td {
-  font-size: 24px;
+  font-size: 28px;
 }
 
 /* 表單文字整體放大 */
 label, input, select, button, .form-section {
-  font-size: 22px;
+  font-size: 26px;
 }
