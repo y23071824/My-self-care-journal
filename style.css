@@ -78,7 +78,7 @@ h2 {
 
 #editor textarea {
   width: 100%;
-  height: 140px;
+  height: 250px;
   font-size: 22px;
 }
 
@@ -87,4 +87,31 @@ h2 {
 #editor label,
 #editor button {
   font-size: 28px;
+}
+@media screen and (max-width: 600px) {
+  body {
+    padding: 1rem;
+    font-size: 18px;
+  }
+
+  #calendar {
+    grid-template-columns: repeat(7, 1fr);
+    font-size: 20px;
+  }
+
+  #editor {
+    transform: scale(1.2); /* 手機上放大程度不要太誇張 */
+  }
+
+  #editor textarea {
+    height: 120px;
+    font-size: 18px;
+  }
+
+  #editor select,
+  #editor input[type="number"],
+  #editor label,
+  #editor button {
+    font-size: 20px;
+  }
 }
