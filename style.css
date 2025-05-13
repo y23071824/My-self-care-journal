@@ -1,1 +1,84 @@
-RELOAD PLACEHOLDER
+
+body {
+  font-family: "Noto Sans TC", sans-serif;
+  background-color: #fffaf8;
+  color: #333;
+  padding: 1rem;
+  font-size: 1.5em;
+}
+
+.main-title {
+  font-size: 4em;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #d36c6c;
+}
+
+.calendar-controls {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.calendar-controls select {
+  font-size: 1em;
+  padding: 0.4em;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+#calendar-label {
+  margin-top: 0.5em;
+  font-size: 1.2em;
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 0.3em;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5em;
+  justify-items: center;
+  margin-bottom: 1rem;
+}
+
+.day {
+  background-color: #fbdede;
+  padding: 1em;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  border-radius: 12px;
+  font-size: 0.9em;
+}
+
+.day.empty {
+  background-color: transparent;
+}
+
+.editor {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-top: 1rem;
+}
+
+textarea {
+  width: 100%;
+  font-size: 0.45em;
+  padding: 0.5em;
+  margin-bottom: 1rem;
+}
+
+.controls select,
+.controls input {
+  font-size: 1em;
+  padding: 0.3em;
+  margin: 0.2em;
+}

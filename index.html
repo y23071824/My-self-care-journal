@@ -1,1 +1,107 @@
-RELOAD PLACEHOLDER
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>自我照顧月曆</title>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    function generateCalendar(year, month) {
+      const calendar = document.getElementById("calendar");
+      calendar.innerHTML = "";
+      const firstDay = new Date(year, month - 1, 1).getDay(); // 0-6
+      const daysInMonth = new Date(year, month, 0).getDate();
+      const offset = (firstDay + 6) % 7;
+
+      for (let i = 0; i < offset; i++) {
+        const empty = document.createElement("div");
+        empty.className = "day empty";
+        calendar.appendChild(empty);
+      }
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dayBox = document.createElement("div");
+        dayBox.className = "day";
+        dayBox.textContent = d;
+        calendar.appendChild(dayBox);
+      }
+
+      document.getElementById("calendar-label").textContent = year + "年" + month + "月";
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth() + 1;
+      document.getElementById("year-select").value = year;
+      document.getElementById("month-select").value = month;
+      generateCalendar(year, month);
+
+      document.getElementById("year-select").addEventListener("change", () => {
+        const y = parseInt(document.getElementById("year-select").value);
+        const m = parseInt(document.getElementById("month-select").value);
+        generateCalendar(y, m);
+      });
+
+      document.getElementById("month-select").addEventListener("change", () => {
+        const y = parseInt(document.getElementById("year-select").value);
+        const m = parseInt(document.getElementById("month-select").value);
+        generateCalendar(y, m);
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1 class="main-title">自我照顧月曆</h1>
+
+  <div class="calendar-controls">
+    <select id="year-select">
+      <option value="2024">2024</option>
+      <option value="2025">2025</option>
+    </select>
+    <select id="month-select">
+      <option value="1">1月</option>
+      <option value="2">2月</option>
+      <option value="3">3月</option>
+      <option value="4">4月</option>
+      <option value="5">5月</option>
+      <option value="6">6月</option>
+      <option value="7">7月</option>
+      <option value="8">8月</option>
+      <option value="9">9月</option>
+      <option value="10">10月</option>
+      <option value="11">11月</option>
+      <option value="12">12月</option>
+    </select>
+    <div id="calendar-label"></div>
+  </div>
+
+  <div class="weekdays">
+    <div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div><div>日</div>
+  </div>
+
+  <div id="calendar" class="calendar-grid"></div>
+
+  <div class="editor">
+    <p>請點選日期</p>
+    <textarea id="text" rows="5">這個編輯時的字太大了再小一點</textarea>
+
+    <div class="controls">
+      <label for="emotion">情緒狀況：</label>
+      <select id="emotion">
+        <option value="😀">😀</option>
+        <option value="🥲">🥲</option>
+        <option value="😠">😠</option>
+      </select>
+      <br>
+      <label><input type="checkbox" /> 情緒日記</label>
+      <label><input type="checkbox" /> 學習進度</label>
+      <label><input type="checkbox" /> 金錢照顧自己</label>
+      <br>
+      <label>今日金錢照顧自己金額：</label>
+      <input type="number" id="money" /> 元
+      <button onclick="alert('已儲存')">儲存</button>
+    </div>
+  </div>
+</body>
+</html>
