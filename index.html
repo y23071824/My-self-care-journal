@@ -5,17 +5,32 @@
   <meta charset="UTF-8" />
   <title>自我照顧月曆</title>
   <link rel="stylesheet" href="style.css" />
+  <script>
+    function updateCalendar() {
+      const year = document.getElementById("year-select").value;
+      const month = document.getElementById("month-select").value;
+      document.getElementById("calendar-label").textContent = year + "年" + month + "月";
+      // 這裡僅更新標籤，實際可進一步換算每月起始星期與天數
+    }
+  </script>
 </head>
 <body>
   <h1 class="main-title">自我照顧月曆</h1>
 
   <div class="calendar-controls">
-    <select id="year-select">
+    <select id="year-select" onchange="updateCalendar()">
       <option value="2025">2025</option>
+      <option value="2024">2024</option>
     </select>
-    <select id="month-select">
+    <select id="month-select" onchange="updateCalendar()">
       <option value="5">5月</option>
+      <option value="6">6月</option>
     </select>
+    <div id="calendar-label">2025年5月</div>
+  </div>
+
+  <div class="weekdays">
+    <div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div><div>日</div>
   </div>
 
   <div id="calendar" class="calendar-grid">

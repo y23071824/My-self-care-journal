@@ -4,6 +4,7 @@ body {
   background-color: #fffaf8;
   color: #333;
   padding: 1rem;
+  font-size: 1.5em; /* 全站字體放大三級 */
 }
 
 .main-title {
@@ -23,6 +24,19 @@ body {
   padding: 0.4em;
   border-radius: 8px;
   border: 1px solid #ccc;
+}
+
+#calendar-label {
+  margin-top: 0.5em;
+  font-size: 1.4em;
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 0.3em;
 }
 
 .calendar-grid {
@@ -53,7 +67,7 @@ body {
 
 textarea {
   width: 100%;
-  font-size: 0.9em;
+  font-size: 0.6em;  /* 編輯區再小三級 */
   padding: 0.5em;
   margin-bottom: 1rem;
 }
