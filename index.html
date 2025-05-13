@@ -6,10 +6,24 @@
   <title>自我照顧月曆</title>
   <link rel="stylesheet" href="style.css" />
   <script>
+    let currentDate = "";
+
+    function generateYearOptions() {
+      const yearSelect = document.getElementById("year-select");
+      const currentYear = new Date().getFullYear();
+      for (let y = 2020; y <= 2030; y++) {
+        const opt = document.createElement("option");
+        opt.value = y;
+        opt.textContent = y;
+        yearSelect.appendChild(opt);
+      }
+      yearSelect.value = currentYear;
+    }
+
     function generateCalendar(year, month) {
       const calendar = document.getElementById("calendar");
       calendar.innerHTML = "";
-      const firstDay = new Date(year, month - 1, 1).getDay(); // 0-6
+      const firstDay = new Date(year, month - 1, 1).getDay();
       const daysInMonth = new Date(year, month, 0).getDate();
       const offset = (firstDay + 6) % 7;
 
@@ -23,19 +37,40 @@
         const dayBox = document.createElement("div");
         dayBox.className = "day";
         dayBox.textContent = d;
+        dayBox.onclick = () => showEditor(year, month, d);
         calendar.appendChild(dayBox);
       }
 
       document.getElementById("calendar-label").textContent = year + "年" + month + "月";
     }
 
+    function showEditor(year, month, day) {
+      const paddedMonth = String(month).padStart(2, '0');
+      const paddedDay = String(day).padStart(2, '0');
+      const dateKey = `${year}-${paddedMonth}-${paddedDay}`;
+      currentDate = dateKey;
+
+      const data = JSON.parse(localStorage.getItem(dateKey) || "{}");
+      document.getElementById("text").value = data.text || "";
+      document.getElementById("emotion").value = data.emotion || "😀";
+      document.querySelector(".editor").style.display = "block";
+    }
+
+    function saveData() {
+      if (!currentDate) return;
+      const data = {
+        text: document.getElementById("text").value,
+        emotion: document.getElementById("emotion").value
+      };
+      localStorage.setItem(currentDate, JSON.stringify(data));
+      alert("已儲存！");
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       const now = new Date();
-      const year = now.getFullYear();
-      const month = now.getMonth() + 1;
-      document.getElementById("year-select").value = year;
-      document.getElementById("month-select").value = month;
-      generateCalendar(year, month);
+      generateYearOptions();
+      document.getElementById("month-select").value = now.getMonth() + 1;
+      generateCalendar(now.getFullYear(), now.getMonth() + 1);
 
       document.getElementById("year-select").addEventListener("change", () => {
         const y = parseInt(document.getElementById("year-select").value);
@@ -48,6 +83,8 @@
         const m = parseInt(document.getElementById("month-select").value);
         generateCalendar(y, m);
       });
+
+      document.getElementById("save-button").addEventListener("click", saveData);
     });
   </script>
 </head>
@@ -55,10 +92,7 @@
   <h1 class="main-title">自我照顧月曆</h1>
 
   <div class="calendar-controls">
-    <select id="year-select">
-      <option value="2024">2024</option>
-      <option value="2025">2025</option>
-    </select>
+    <select id="year-select"></select>
     <select id="month-select">
       <option value="1">1月</option>
       <option value="2">2月</option>
@@ -82,26 +116,17 @@
 
   <div id="calendar" class="calendar-grid"></div>
 
-  <div class="editor">
-    <p>請點選日期</p>
-    <textarea id="text" rows="5">這個編輯時的字太大了再小一點</textarea>
-
-    <div class="controls">
-      <label for="emotion">情緒狀況：</label>
-      <select id="emotion">
-        <option value="😀">😀</option>
-        <option value="🥲">🥲</option>
-        <option value="😠">😠</option>
-      </select>
-      <br>
-      <label><input type="checkbox" /> 情緒日記</label>
-      <label><input type="checkbox" /> 學習進度</label>
-      <label><input type="checkbox" /> 金錢照顧自己</label>
-      <br>
-      <label>今日金錢照顧自己金額：</label>
-      <input type="number" id="money" /> 元
-      <button onclick="alert('已儲存')">儲存</button>
-    </div>
+  <div class="editor" style="display:none;">
+    <p>當日記錄</p>
+    <textarea id="text" rows="5" placeholder="寫下今天為自己做的事..."></textarea>
+    <br />
+    <label for="emotion">情緒：</label>
+    <select id="emotion">
+      <option value="😀">😀</option>
+      <option value="🥲">🥲</option>
+      <option value="😠">😠</option>
+    </select>
+    <button id="save-button">儲存</button>
   </div>
 </body>
 </html>

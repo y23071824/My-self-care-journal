@@ -55,10 +55,12 @@ body {
   text-align: center;
   border-radius: 12px;
   font-size: 0.9em;
+  cursor: pointer;
 }
 
 .day.empty {
   background-color: transparent;
+  cursor: default;
 }
 
 .editor {
@@ -76,9 +78,7 @@ textarea {
   margin-bottom: 1rem;
 }
 
-.controls select,
-.controls input {
+select, button {
   font-size: 1em;
-  padding: 0.3em;
-  margin: 0.2em;
+  margin-top: 0.5em;
 }
