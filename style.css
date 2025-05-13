@@ -78,7 +78,7 @@ h2 {
 
 #editor textarea {
   width: 100%;
-  height: 250px;
+  height: 140px;
   font-size: 22px;
 }
 
@@ -88,6 +88,8 @@ h2 {
 #editor button {
   font-size: 28px;
 }
+
+/* 手機響應式設計 */
 @media screen and (max-width: 600px) {
   body {
     padding: 1rem;
@@ -95,12 +97,11 @@ h2 {
   }
 
   #calendar {
-    grid-template-columns: repeat(7, 1fr);
     font-size: 20px;
   }
 
   #editor {
-    transform: scale(1.2); /* 手機上放大程度不要太誇張 */
+    transform: scale(1.2);
   }
 
   #editor textarea {
