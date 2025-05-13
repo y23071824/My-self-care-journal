@@ -3,82 +3,55 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <title>自我照顧日記</title>
+  <title>自我照顧月曆</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>自我照顧月曆</h1>
-  <div id="calendar"></div>
-  <div id="summary"></div>
-  <div id="editor">
-    <h2 id="date-title">請點選日期</h2>
-    <textarea id="text" placeholder="寫下你的努力，對自己的照顧..."></textarea>
-    <label>情緒狀況：
+  <h1 class="main-title">自我照顧月曆</h1>
+
+  <div class="calendar-controls">
+    <select id="year-select">
+      <option value="2025">2025</option>
+    </select>
+    <select id="month-select">
+      <option value="5">5月</option>
+    </select>
+  </div>
+
+  <div id="calendar" class="calendar-grid">
+    <div class="day">4</div><div class="day">5</div><div class="day">6</div>
+    <div class="day">7</div><div class="day">8</div><div class="day">9</div>
+    <div class="day">10</div><div class="day">11</div><div class="day">12</div>
+    <div class="day">13<br>green</div><div class="day">14<br>green</div>
+    <div class="day">15<br>🥲</div><div class="day">16</div><div class="day">17<br>green</div>
+    <div class="day">18</div><div class="day">19<br>green</div>
+    <div class="day">20</div><div class="day">21</div>
+    <div class="day">22<br>yellow</div><div class="day">23<br>green</div>
+    <div class="day">24</div><div class="day">25</div><div class="day">26</div>
+    <div class="day">27<br>🥲</div><div class="day">28</div><div class="day">29</div>
+    <div class="day">30</div><div class="day">31<br>🥲</div>
+  </div>
+
+  <div class="editor">
+    <p>請點選日期</p>
+    <textarea id="text" rows="5">這個編輯時的字太大了再小一點</textarea>
+
+    <div class="controls">
+      <label for="emotion">情緒狀況：</label>
       <select id="emotion">
-  <option value="😀">😀</option>
-  <option value="🙂">🙂</option>
-  <option value="😊">😊</option>
-  <option value="🥰">🥰</option>
-  <option value="😗">😗</option>
-  <option value="🥲">🥲</option>
-  <option value="🫣">🫣</option>
-  <option value="🤐">🤐</option>
-  <option value="🤨">🤨</option>
-  <option value="😑">😑</option>
-  <option value="😶">😶</option>
-  <option value="😒">😒</option>
-  <option value="😏">😏</option>
-  <option value="🙄">🙄</option>
-  <option value="😬">😬</option>
-  <option value="😮‍💨">😮‍💨</option>
-  <option value="😐">😐</option>
-  <option value="🤥">🤥</option>
-  <option value="😔">😔</option>
-  <option value="🤤">🤤</option>
-  <option value="🤢">🤢</option>
-  <option value="🤮">🤮</option>
-  <option value="🤕">🤕</option>
-  <option value="🤒">🤒</option>
-  <option value="😷">😷</option>
-  <option value="🫩">🫩</option>
-  <option value="🤧">🤧</option>
-  <option value="🥵">🥵</option>
-  <option value="😵‍💫">😵‍💫</option>
-  <option value="🤯">🤯</option>
-  <option value="😵">😵</option>
-  <option value="🥳">🥳</option>
-  <option value="😳">😳</option>
-  <option value="🥺">🥺</option>
-  <option value="🥹">🥹</option>
-  <option value="😰">😰</option>
-  <option value="😢">😢</option>
-  <option value="😭">😭</option>
-  <option value="😱">😱</option>
-  <option value="😖">😖</option>
-  <option value="😫">😫</option>
-  <option value="😤">😤</option>
-  <option value="😡">😡</option>
-  <option value="🤬">🤬</option>
-  <option value="😈">😈</option>
-  <option value="👿">👿</option>
-</select>
-        <option value="green">綠色：穩定</option>
-        <option value="yellow">黃色：普通</option>
-        <option value="red">紅色：低落</option>
+        <option value="😀">😀</option>
+        <option value="🥲">🥲</option>
+        <option value="😠">😠</option>
       </select>
-    </label>
-    <div>
-      <label><input type="checkbox" id="categoryEmotion"> 情緒日記</label>
-      <label><input type="checkbox" id="categoryLearning"> 學習進度</label>
-      <label><input type="checkbox" id="categoryMoney"> 金錢照顧自己</label>
-    </div>
-    <label>今日金錢照顧自己金額：
+      <br>
+      <label><input type="checkbox" /> 情緒日記</label>
+      <label><input type="checkbox" /> 學習進度</label>
+      <label><input type="checkbox" /> 金錢照顧自己</label>
+      <br>
+      <label>今日金錢照顧自己金額：</label>
       <input type="number" id="money" /> 元
-    </label>
-    <div>
-      <button onclick="saveData()">儲存</button>
+      <button onclick="alert('已儲存')">儲存</button>
     </div>
   </div>
-  <script src="script.js"></script>
 </body>
 </html>

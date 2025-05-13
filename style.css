@@ -1,78 +1,66 @@
 
 body {
-  font-family: sans-serif;
-  background: #fffaf8;
+  font-family: "Noto Sans TC", sans-serif;
+  background-color: #fffaf8;
   color: #333;
-  padding: 1.5rem;
-  font-size: 16px;
+  padding: 1rem;
 }
-h1 {
-  color: #d2889d;
-  font-size: 28px;
+
+.main-title {
+  font-size: 4em;
   text-align: center;
+  margin-bottom: 1rem;
+  color: #d36c6c;
 }
-h2 {
-  color: #d2889d;
-  font-size: 20px;
-}
-#calendar-controls {
-  margin: 1rem auto;
+
+.calendar-controls {
   text-align: center;
-}
-#calendar-controls select {
-  font-size: 16px;
-  padding: 0.3rem;
-  margin: 0.2rem;
-}
-#calendar-weekdays {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  text-align: center;
-  font-weight: bold;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-}
-#calendar {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
   margin-bottom: 1rem;
 }
+
+.calendar-controls select {
+  font-size: 1.2em;
+  padding: 0.4em;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5em;
+  justify-items: center;
+  margin-bottom: 1rem;
+}
+
 .day {
-  padding: 2rem 0.5rem;
-  font-size: 18px;
-  background: #fddde6;
-  border-radius: 8px;
+  background-color: #fbdede;
+  padding: 1em;
+  width: 60px;
+  height: 60px;
   text-align: center;
-  cursor: pointer;
-  position: relative;
+  border-radius: 12px;
+  font-size: 0.9em;
 }
-.day:hover {
-  background: #f9c6d0;
-}
-.dot {
-  font-size: 20px;
-  position: absolute;
-  bottom: 4px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-#editor textarea {
-  width: 100%;
-  height: 120px;
-  font-size: 12px;
-  line-height: 1.4;
-}
-#editor select,
-#editor input[type="number"],
-#editor label,
-#editor button {
-  font-size: 14px;
-}
-#summary {
-  margin: 1rem 0;
+
+.editor {
+  background-color: #fff;
+  border: 1px solid #ccc;
   padding: 1rem;
-  background: #fef1f3;
-  border-radius: 8px;
-  font-size: 14px;
+  border-radius: 12px;
+  margin-top: 1rem;
+}
+
+textarea {
+  width: 100%;
+  font-size: 0.9em;
+  padding: 0.5em;
+  margin-bottom: 1rem;
+}
+
+.controls select,
+.controls input {
+  font-size: 1em;
+  padding: 0.3em;
+  margin: 0.2em;
 }
