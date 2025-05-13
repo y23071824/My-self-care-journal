@@ -72,12 +72,12 @@ h2 {
 
 #editor {
   margin-top: 1rem;
-  transform: scale(2.0);
+  transform: scale(1.0);
   transform-origin: top left;
 }
 
 #editor textarea {
-  width: 700%;
+  width: 100%;
   height: 200px;
   font-size: 22px;
 }
